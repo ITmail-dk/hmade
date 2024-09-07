@@ -8,4 +8,4 @@ Start the installation as regular users with SUDO rights, after you login to you
 
 Run this one command to start Hmade install and you're good to go.:
 
-`bash -c "$(wget -O- https://raw.githubusercontent.com/ITmail-dk/hmade/main/install.sh)"`
+    bash -c "$(wget -O- https://raw.githubusercontent.com/ITmail-dk/hmade/main/install.sh)"
