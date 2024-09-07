@@ -841,11 +841,11 @@ else
 	echo "Wallpapers folder already exists."
 fi
 
-if [ -f ~/.fehbg ]; then
-    . ~/.fehbg
-else
-    feh --bg-scale ~/Wallpapers/default_wallpaper.jpg
-fi
+#if [ -f ~/.fehbg ]; then
+#    . ~/.fehbg
+#else
+#    feh --bg-scale ~/Wallpapers/default_wallpaper.jpg
+#fi
 
 echo -e "${YELLOW} auto-new-wallpaper-and-colors BIN START ${NC}"
 sudo bash -c 'cat << "AUTONEWWALLPAPERANDCOLORSBIN" >> /usr/local/bin/auto-new-wallpaper-and-colors
