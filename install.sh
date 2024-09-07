@@ -447,9 +447,11 @@ windowrulev2 = suppressevent maximize, class:.* # You'll probably like this.
 windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)$
 
 source = ~/.config/hypr/autostart.conf
-
-
 HYPRLANDCONFIG
+
+else 
+	echo "Hyprland config already exists."
+fi
 
 
 echo -e "${GREEN} Kitty config file START ${NC}"
