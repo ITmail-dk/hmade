@@ -83,7 +83,8 @@ sudo apt install -y printer-driver-all cups cups-client cups-filters cups-pdf sy
 sudo apt install -y polkit-kde-agent-1 --no-install-recommends
 
 # Audio
-sudo apt install -y pipewire pipewire-pulse wireplumber pipewire-jack pipewire-audio-client-libraries pavucontrol
+sudo apt install -y pipewire wireplumber pavucontrol pipewire-alsa pipewire-pulse pipewire-jack
+ 
 # PipeWire Sound Server "Audio" - https://pipewire.org/
 systemctl enable --user --now pipewire.socket pipewire-pulse.socket wireplumber.service
 
