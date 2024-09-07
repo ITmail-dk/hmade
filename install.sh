@@ -83,7 +83,7 @@ sudo apt install -y linux-headers-$(uname -r)
 sudo apt install -y polkit-kde-agent-1 --no-install-recommends
 
 # Audio
-sudo apt install -y pipewire pipewire-pulse wireplumber pipewire-jack pipewire-alsa pipewire-audio-client-libraries pavucontrol
+sudo apt install -y pipewire pipewire-pulse wireplumber pipewire-jack pipewire-audio-client-libraries pavucontrol
 # PipeWire Sound Server "Audio" - https://pipewire.org/
 systemctl enable --user --now pipewire.socket pipewire-pulse.socket wireplumber.service
 
