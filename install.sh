@@ -795,7 +795,7 @@ else
 	echo "Kitty config already exists."
 fi
 
-echo -e "${GREEN} Kitty theme.conf Start ${NC}"
+echo -e "${GREEN} Kitty Theme.conf Start ${NC}"
 
 if [ ! -f $HOME/.config/kitty/themes/kittytheme.conf ]; then
 mkdir -p $HOME/.config/kitty/themes
@@ -826,37 +826,6 @@ else
 fi
 
 echo -e "${GREEN} Kitty config file END ${NC}"
-
-
-echo -e "${GREEN} Kittytheme.conf Start ${NC}"
-
-if [ ! -f $HOME/.config/kitty/themes/kittytheme.conf ]; then
-mkdir -p $HOME/.config/kitty/themes
-cat << "KITTYTHEMECONF" > $HOME/.config/kitty/themes/kittytheme.conf
-background #1b0200
-foreground #ee712d
-color0 #1b0200
-color1 #240002
-color2 #d74d00
-color3 #d74d00
-color4 #9c2101
-color5 #d74d00
-color6 #d74d00
-color7 #d74d00
-color8 #d74d00
-color9 #830508
-color10 #d74d00
-color11 #d74d00
-color12 #9a292f
-color13 #e46324
-color14 #ea6f10
-color15 #ee712d
-
-KITTYTHEMECONF
-
-else 
-	echo "kittytheme.conf file already exists."
-fi
 
 
 # END
