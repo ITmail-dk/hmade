@@ -205,9 +205,9 @@ $browser = google-chrome
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
-# exec-once = $terminal
-# exec-once = nm-applet &
-# exec-once = waybar & hyprpaper & firefox
+exec-once = dunst
+# exec-once = waybar
+# exec-once = nm-applet
 
 
 #############################
@@ -446,7 +446,7 @@ windowrulev2 = suppressevent maximize, class:.* # You'll probably like this.
 
 windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)$
 
-source = ~/.config/hypr/autostart.conf
+#source = ~/.config/hypr/autostart.conf
 HYPRLANDCONFIG
 
 else 
@@ -795,7 +795,7 @@ else
 	echo "Kitty config already exists."
 fi
 
-echo -e "${GREEN} Kitty Theme.conf Start ${NC}"
+echo -e "${GREEN}Kitty Theme.conf Start${NC}"
 
 if [ ! -f $HOME/.config/kitty/themes/kittytheme.conf ]; then
 mkdir -p $HOME/.config/kitty/themes
@@ -825,8 +825,207 @@ else
 	echo "kittytheme.conf file already exists."
 fi
 
-echo -e "${GREEN} Kitty config file END ${NC}"
+echo -e "${GREEN}Kitty config file END${NC}"
+
+# Add User NOPASSWD to shutdown now and reboot
+echo "$USER ALL=(ALL) NOPASSWD: /sbin/shutdown now, /sbin/reboot" | sudo tee /etc/sudoers.d/$USER && sudo visudo -c -f /etc/sudoers.d/$USER
+
+
+echo -e "${GREEN}Wallpapers${NC}"
+
+if [ ! -d ~/Wallpapers ]; then
+mkdir -p ~/Wallpapers
+wget -O ~/Wallpapers/default_wallpaper.jpg https://github.com/ITmail-dk/qmade/blob/main/default_wallpaper_by_natalia-y_on_unsplash.jpg?raw=true
+
+else 
+	echo "Wallpapers folder already exists."
+fi
+
+if [ -f ~/.fehbg ]; then
+    . ~/.fehbg
+else
+    feh --bg-scale ~/Wallpapers/default_wallpaper.jpg
+fi
+
+echo -e "${YELLOW} auto-new-wallpaper-and-colors BIN START ${NC}"
+sudo bash -c 'cat << "AUTONEWWALLPAPERANDCOLORSBIN" >> /usr/local/bin/auto-new-wallpaper-and-colors
+#!/bin/bash
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/bin
+
+if [ ! -f "$HOME/.config/extract_colors.py" ]; then
+    echo "$HOME/.config/extract_colors.py not found! Please ensure the Python script is in the same directory."
+    exit 1
+fi
+
+RWALLP="$(find $HOME/Wallpapers -type f | shuf -n 1)"
+
+notify-send -u low "Automatically new background and color theme" "Please wait while we find a new background image and some colors to match"
+
+python3 $HOME/.config/extract_colors.py $RWALLP
+feh --bg-scale $RWALLP
+qtile cmd-obj -o cmd -f reload_config
+kitty +kitten themes --reload-in=all Kittytheme
+
+notify-send -u low "Automatically new background and color theme" "The background image and colors has been updated."
+
+AUTONEWWALLPAPERANDCOLORSBIN'
+
+sudo chmod +x /usr/local/bin/auto-new-wallpaper-and-colors
+
+echo -e "${YELLOW} auto-new-wallpaper-and-colors BIN END ${NC}"
+
+
+# Extract New-Colors file
+if [ ! -f ~/.config/extract_colors.py ]; then
+cat << "EXTRACTCOLORS" > ~/.config/extract_colors.py
+import sys
+import os
+import colorgram
+from PIL import Image, ImageDraw, ImageFont
+
+def rgb_to_hex(rgb):
+    return '#{:02x}{:02x}{:02x}'.format(rgb[0], rgb[1], rgb[2])
+
+def luminance(rgb):
+    r, g, b = rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0
+    a = [r, g, b]
+    for i in range(len(a)):
+        if a[i] <= 0.03928:
+            a[i] = a[i] / 12.92
+        else:
+            a[i] = ((a[i] + 0.055) / 1.055) ** 2.4
+    return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2]
+
+def choose_text_color(background_color):
+    if luminance(background_color) > 0.5:
+        return (0, 0, 0)  # dark text for light background
+    else:
+        return (255, 255, 255)  # light text for dark background
+
+def create_color_grid(colors, base16_colors, filename='color_grid.png'):
+    grid_size = 4  # 4x4 grid
+    square_size = 150  # Size of each small square
+    img_size = square_size * grid_size  # Calculate total image size
+
+    img = Image.new('RGB', (img_size, img_size))
+    draw = ImageDraw.Draw(img)
+
+    # Load a font
+    try:
+        font = ImageFont.truetype("arial.ttf", 30)
+    except IOError:
+        font = ImageFont.load_default()
+
+    # Fill the grid with colors and add text labels
+    for i, (key, value) in enumerate(base16_colors.items()):
+        x = (i % grid_size) * square_size
+        y = (i // grid_size) * square_size
+        draw.rectangle([x, y, x + square_size, y + square_size], fill=value)
+        # Choose text color based on background color luminance
+        text_color = choose_text_color(tuple(int(value[i:i+2], 16) for i in (1, 3, 5)))
+        # Add text label
+        text_position = (x + 10, y + 10)
+        draw.text(text_position, key, fill=text_color, font=font)
+
+    img.save(filename)
+
+
+def main(image_path):
+    colors = colorgram.extract(image_path, 16)
+
+    # Ensure there are exactly 16 colors by duplicating if necessary
+    while len(colors) < 16:
+        colors.append(colors[len(colors) % len(colors)])
+
+    # Sort colors by luminance
+    colors.sort(key=lambda col: luminance(col.rgb))
+
+    # Assign colors to Base16 scheme slots ensuring the tonal range
+    base16_colors = {
+        'base00': rgb_to_hex(colors[0].rgb),
+        'base01': rgb_to_hex(colors[5].rgb),
+        'base02': rgb_to_hex(colors[12].rgb),
+        'base03': rgb_to_hex(colors[9].rgb),
+        'base04': rgb_to_hex(colors[4].rgb),
+        'base05': rgb_to_hex(colors[10].rgb),
+        'base06': rgb_to_hex(colors[6].rgb),
+        'base07': rgb_to_hex(colors[14].rgb),
+        'base08': rgb_to_hex(colors[2].rgb),
+        'base09': rgb_to_hex(colors[3].rgb),
+        'base0A': rgb_to_hex(colors[1].rgb),
+        'base0B': rgb_to_hex(colors[11].rgb),
+        'base0C': rgb_to_hex(colors[8].rgb),
+        'base0D': rgb_to_hex(colors[13].rgb),
+        'base0E': rgb_to_hex(colors[7].rgb),
+        'base0F': rgb_to_hex(colors[15].rgb),
+    }
+
+    descriptions = [
+        "Default Background",
+        "Lighter Background (Used for status bars, line number and folding marks)",
+        "Selection Background",
+        "Comments, Invisibles, Line Highlighting",
+        "Dark Foreground (Used for status bars)",
+        "Default Foreground, Caret, Delimiters, Operators",
+        "Light Foreground (Not often used)",
+        "Light Background (Not often used)",
+        "Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted",
+        "Integers, Boolean, Constants, XML Attributes, Markup Link Url",
+        "Classes, Markup Bold, Search Text Background",
+        "Strings, Inherited Class, Markup Code, Diff Inserted",
+        "Support, Regular Expressions, Escape Characters, Markup Quotes",
+        "Functions, Methods, Attribute IDs, Headings",
+        "Keywords, Storage, Selector, Markup Italic, Diff Changed",
+        "Deprecated, Opening/Closing Embedded Language Tags",
+    ]
+
+    # Ensure the directory exists
+    qtile_config_dir = os.path.expanduser('~/.config/qtile/')
+    os.makedirs(qtile_config_dir, exist_ok=True)
+
+    # Path to the output file
+    output_file_path = os.path.join(qtile_config_dir, 'qtile_colors.py')
+
+    # Write the colors to the Python file
+    with open(output_file_path, 'w') as f:
+        f.write("colors = {\n")
+        for key, value in base16_colors.items():
+            description = descriptions.pop(0)
+            f.write(f'    "{key}": "{value}",  # {description}\n')
+        f.write("}\n")
+
+    # Ensure the directory exists
+    kitty_config_dir = os.path.expanduser('~/.config/kitty/themes/')
+    os.makedirs(kitty_config_dir, exist_ok=True)
+
+    # Path to the output file
+    output_file_path = os.path.join(kitty_config_dir, 'kittytheme.conf')
+
+    with open(output_file_path, 'w') as f:
+        f.write(f'background {base16_colors["base00"]}\n')
+        f.write(f'foreground {base16_colors["base0F"]}\n')
+        for index, (_, value) in enumerate(base16_colors.items()):
+            f.write(f'color{index} {value}\n')
+    # Create a PNG file with the extracted colors and labels
+    create_color_grid(colors, base16_colors)
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: extract_colors.py <image_path>")
+    else:
+        main(sys.argv[1])
+
+EXTRACTCOLORS
+
+else 
+	echo "File ~/.config/extract_colors.py already exists."
+fi
+
+
+
 
 
 # END
 cd ~
+
+echo -e "${GREEN}Installation complete ready to restart.${NC}"
