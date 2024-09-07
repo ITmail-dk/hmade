@@ -78,7 +78,7 @@ sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin noti
 # Printer
 sudo apt install -y printer-driver-all cups cups-client cups-filters cups-pdf system-config-printer
 
-sudo apt install -y linux-headers-$(uname -r)
+#sudo apt install -y linux-headers-$(uname -r)
 
 sudo apt install -y polkit-kde-agent-1 --no-install-recommends
 
