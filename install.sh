@@ -92,7 +92,8 @@ sudo apt install -y printer-driver-all cups cups-client cups-filters cups-pdf sy
 
 #sudo apt install -y linux-headers-$(uname -r)
 
-sudo apt install -y polkit-kde-agent-1 --no-install-recommends
+sudo apt install -y mate-polkit --no-install-recommends
+#sudo apt install -y polkit-kde-agent-1 --no-install-recommends
 
 # Audio
 sudo apt install -y pipewire wireplumber pavucontrol pipewire-alsa pipewire-pulse pipewire-jack
