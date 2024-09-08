@@ -84,6 +84,9 @@ sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools xdg-desktop-portal-gt
 
 sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl swaylock usbutils feh
 
+# Network
+sudo apt install -y network-manager network-manager-applet 
+
 # Printer
 sudo apt install -y printer-driver-all cups cups-client cups-filters cups-pdf system-config-printer
 
@@ -154,7 +157,7 @@ xdg-mime default kitty.desktop text/x-shellscript
 xdg-mime default thunar.desktop inode/directory
 
 sleep 1
-clear
+#clear
 
 echo -e "${GREEN}Settings GRUB TIMEOUT to 1 second. ${NC}"
 sudo sed -i 's+GRUB_TIMEOUT=5+GRUB_TIMEOUT=1+g' /etc/default/grub && sudo update-grub
@@ -330,7 +333,11 @@ input {
     sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
 
     touchpad {
+    	tap-to-click = true
+     	disable_while_typing = true
+    	clickfinger_behavior = false
         natural_scroll = false
+	scroll_factor = 1
     }
 }
 
