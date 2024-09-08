@@ -50,10 +50,19 @@ fi
 
 # APT Add "contrib non-free" to the sources list
 if [ -f /etc/apt/sources.list.d/debian.sources ]; then
-    sudo sed -i 's/^Components:* main/& contrib non-free non-free-firmware/g' /etc/apt/sources.list.d/debian.sources
+    if ! grep -q "Components:.* contrib non-free non-free-firmware" /etc/apt/sources.list.d/debian.sources; then
+        sudo sed -i 's/^Components:* main/& contrib non-free non-free-firmware/g' /etc/apt/sources.list.d/debian.sources
+    else
+        echo "contrib non-free non-free-firmware is already present in /etc/apt/sources.list.d/debian.sources"
+    fi
 else
-	sudo sed -i 's/^deb.* main/& contrib non-free/g' /etc/apt/sources.list
+    if ! grep -q "deb .* contrib non-free" /etc/apt/sources.list; then
+        sudo sed -i 's/^deb.* main/& contrib non-free/g' /etc/apt/sources.list
+    else
+        echo "contrib non-free is already present in /etc/apt/sources.list"
+    fi
 fi
+
 
 clear
 
