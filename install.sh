@@ -325,7 +325,7 @@ input {
     kb_layout = dk
     kb_variant =
     kb_model =
-    kb_options =
+    kb_options = nodeadkeys
     kb_rules =
     numlock_by_default = true
 
