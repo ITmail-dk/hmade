@@ -107,7 +107,7 @@ sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools xdg-desktop-portal-gt
 sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl swaylock usbutils feh
 
 # Network
-sudo apt install -y network-manager network-manager-applet 
+sudo apt install -y network-manager 
 
 # Printer
 sudo apt install -y printer-driver-all cups cups-client cups-filters cups-pdf system-config-printer
