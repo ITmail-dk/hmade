@@ -41,13 +41,6 @@ echo -e "${RED} ${NC}"
 
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak.$(date +'%d-%m-%Y_%H%M%S')
 
-if ! dpkg -s apt-transport-https >/dev/null 2>&1; then
-    sudo apt -y install apt-transport-https
-    sudo sed -i 's+http:+https:+g' /etc/apt/sources.list
-else
-    echo "apt-transport-https is already installed."
-fi
-
 # 1. Deaktivér linjer med 'deb cdrom:' i /etc/apt/sources.list
 sudo sed -i '/^deb cdrom:/s/^/#/' /etc/apt/sources.list
 
@@ -85,6 +78,13 @@ else
     fi
 fi
 
+
+if ! dpkg -s apt-transport-https >/dev/null 2>&1; then
+    sudo apt -y install apt-transport-https
+    sudo sed -i 's+http:+https:+g' /etc/apt/sources.list
+else
+    echo "apt-transport-https is already installed."
+fi
 
 clear
 
