@@ -100,9 +100,9 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 sudo apt -y install sddm --no-install-recommends
 
-sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols
+sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev
 
-sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools xdg-desktop-portal-gtk xwayland qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq
+sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools xdg-desktop-portal-wlr xwayland qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq
 
 sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl swaylock usbutils feh
 
