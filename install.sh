@@ -100,7 +100,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 sudo apt -y install sddm --no-install-recommends
 
-sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev
+sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev swaybg
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools xdg-desktop-portal-wlr xwayland qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq
 
@@ -240,10 +240,15 @@ $browser = google-chrome
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
-exec-once = dunst
-# exec-once = waybar
-# exec-once = nm-applet
+exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
 
+exec = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
+
+exec-once = dunst
+exec-once = waybar
+# exec-once = nm-applet
+# exec-once = blueman-applet
 
 #############################
 ### ENVIRONMENT VARIABLES ###
@@ -263,27 +268,28 @@ env = HYPRCURSOR_SIZE,24
 
 # https://wiki.hyprland.org/Configuring/Variables/#general
 general {
-    gaps_in = 5
-    gaps_out = 10
+    gaps_in = 3
+    gaps_out = 2
 
     border_size = 1
 
     # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
-    col.inactive_border = rgba(595959aa)
+    col.active_border = rgba(216bb7cc) rgba(#388abecc) 45deg
+    col.inactive_border = rgba(3e4c55c9)
 
     # Set to true enable resizing windows by clicking and dragging on borders and gaps
     resize_on_border = false
 
-    # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+    # https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
     allow_tearing = false
 
+    # https://wiki.hyprland.org/Configuring/Dwindle-Layout/
     layout = dwindle
 }
 
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 decoration {
-    rounding = 3
+    rounding = 0
 
     # Change transparency of focused and unfocused windows
     active_opacity = 1.0
@@ -1061,6 +1067,16 @@ else
 fi
 
 
+# Fonts - https://www.nerdfonts.com/font-downloads
+
+# IBM Plex Mono
+
+font_name=IBMPlexMono
+curl -OL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font_name.zip"
+mkdir -p  "$HOME/.fonts"
+unzip "$font_name.zip" -d "$HOME/.fonts/$font_name/"
+fc-cache -fv
+rm $font_name.zip
 
 
 
