@@ -45,7 +45,7 @@ sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak.$(date +'%d-%m-%Y_%H%M%S
 sudo sed -i '/^deb cdrom:/s/^/#/' /etc/apt/sources.list
 
 # 2. Kontroller og tilføj Bookworm repositories, hvis de ikke allerede er der
-if ! grep -q "^deb http://deb.debian.org/debian/ bookworm main non-free-firmware" /etc/apt/sources.list; then
+if ! grep -q "^deb http://deb.debian.org/debian/ bookworm main non-free-firmware" || grep -q "^deb https://deb.debian.org/debian/ bookworm main non-free-firmware" /etc/apt/sources.list; then
     echo "Tilføjer Debian Bookworm repositories til /etc/apt/sources.list"
     sudo tee -a /etc/apt/sources.list <<EOL
 
