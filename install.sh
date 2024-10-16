@@ -48,9 +48,22 @@ echo -e "${RED}-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-"
 echo -e "${RED} ${NC}"
 
 if [ -f /etc/apt/sources.list ]; then
-	sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak.$(date +'%d-%m-%Y_%H%M%S')
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak.$(date +'%d-%m-%Y_%H%M%S')
  else
-    echo "No Debian repositories sources.list"
+    	echo "No Debian repositories sources.list"
+	echo "Tilføjer Debian Bookworm repositories til /etc/apt/sources.list"
+	sudo tee -a /etc/apt/sources.list <<EOL
+	
+	deb http://deb.debian.org/debian/ bookworm main non-free-firmware
+	deb-src http://deb.debian.org/debian/ bookworm main non-free-firmware
+	
+	deb http://security.debian.org/debian-security bookworm-security main non-free-firmware
+	deb-src http://security.debian.org/debian-security bookworm-security main non-free-firmware
+	
+	deb http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
+	deb-src http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
+	
+	EOL
 fi
 
 # 1. Deaktivér linjer med 'deb cdrom:' i /etc/apt/sources.list
