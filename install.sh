@@ -15,6 +15,14 @@ FULLUSERNAME=$(awk -v user="$USER" -F":" 'user==$1{print $5}' /etc/passwd | rev 
 
 clear
 
+if [ -f /etc/debian_version ]; then
+    echo "The system is running on Debian Linux, everything is fine..."
+else
+    echo "This installation should only be run on a Debian Linux System."
+    exit 1
+fi
+
+
 # Function to echo, handle errors - Stop the entire installation if an error occurs during the installation
 error_handler() {
     echo -e "${RED} An error occurred during installation and has been stopped. ${NC}"
