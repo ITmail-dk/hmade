@@ -265,12 +265,13 @@ env = HYPRCURSOR_SIZE,24
 # https://wiki.hyprland.org/Configuring/Variables/#general
 general {
     gaps_in = 4
-    gaps_out = 4
+    gaps_out = 8
 
     border_size = 1
 
     # https://wiki.hyprland.org/Configuring/Variables/#variable-types
-    col.active_border = rgba(216bb7cc) rgba(#388abecc) 45deg
+    col.active_border = rgba(195896c4)
+    #col.active_border = rgba(216bb7cc) rgba(388abecc) 45deg
     col.inactive_border = rgba(3e4c55c9)
 
     # Set to true or false to enable resizing windows by clicking and dragging on borders and gaps
