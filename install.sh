@@ -96,7 +96,6 @@ sudo apt -y install sddm --no-install-recommends
 sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev swaybg swayidle xwayland
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq 
-#xprop
 
 sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils
 
