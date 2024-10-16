@@ -209,7 +209,15 @@ cat << "HYPRLANDCONFIG" > ~/.config/hypr/hyprland.conf
 ################
 
 # https://wiki.hyprland.org/Configuring/Monitors/
+# list all available monitors - hyprctl monitors all
+# monitor = name, resolution, position, scale
+
 monitor=,preferred,auto,1
+
+# unscale XWayland
+xwayland {
+  force_zero_scaling = true
+}
 
 ####################
 # Default Programs #
@@ -327,6 +335,7 @@ animations {
 dwindle {
     pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # You probably want this
+    default_split_ratio = 1.2
 }
 
 # https://wiki.hyprland.org/Configuring/Master-Layout/
@@ -491,10 +500,9 @@ bind = $mainMod, B, exec, $browser
 windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)
 windowrulev2 = float,floatpos center,noborder,norounding,class:^(nwg-look)
 windowrulev2 = float,floatpos center,noborder,norounding,class:(org.pulseaudio.pavucontrol)
+windowrulev2 = size 50% 40%, class:(org.pulseaudio.pavucontrol)
 windowrulev2 = float,class:(blueman-manager)
 
-windowrulev2 = float,class:(org.qbittorrent.qBittorrent)
-windowrulev2 = float,class:(anki)
 
 
 # Special Windowrule
@@ -508,6 +516,8 @@ windowrulev2 = idleinhibit fullscreen, class:.* # if a window is fullscreen, don
 # Example windowrule v2
 # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
 
+# https://wiki.hyprland.org/Configuring/Window-Rules/#layer-rules
+layerrule = noanim, rofi
 
 HYPRLANDCONFIG
 
