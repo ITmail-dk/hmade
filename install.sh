@@ -400,7 +400,7 @@ device {
 $mainMod = SUPER
 $secondMod = SHIFT
 $thirdMod = ALT
-$thirdMod = CTRL
+$fourthdMod = CTRL
 
 # https://wiki.hyprland.org/Configuring/Binds/
 bind = $mainMod, Return, exec, $terminal
