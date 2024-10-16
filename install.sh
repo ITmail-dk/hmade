@@ -526,9 +526,10 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
 {
     // "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
+    "height": 28, // Waybar height (to be removed for auto height)
+    "width": 980, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
+    "margin-top": 10,
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
@@ -619,13 +620,13 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         }
     },
     "tray": {
-        // "icon-size": 21,
+        // "icon-size": 18,
         "spacing": 10
     },
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%d-%m-%Y}"
     },
     "cpu": {
         "format": "{usage}% ",
@@ -686,24 +687,14 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
+		"scroll-step": 5,
+		"format": "<span color='#fab387'>{icon}</span> {volume}%",
+		"format-icons": {
+		"default": ["", "", ""]
+		},
+		"on-click": "pavucontrol",
+		"tooltip": false
+	},
     "custom/media": {
         "format": "{icon} {text}",
         "return-type": "json",
