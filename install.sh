@@ -556,23 +556,6 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         "tray",
         "custom/power"
     ],
-    // Modules configuration
-    // "hyprland/workspaces": {
-    //     "disable-scroll": true,
-    //     "all-outputs": true,
-    //     "warp-on-scroll": false,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    // },
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -582,6 +565,16 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
             "unlocked": ""
         }
     },
+    "hyprland/workspaces": {
+		"format": "{icon}",
+		"on-click": "activate",
+		"format-icons": {
+			"urgent": "",
+			"active": "",
+			"default": ""
+			},
+		"tooltip": false,
+	},
     "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
