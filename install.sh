@@ -200,16 +200,15 @@ echo -e "${GREEN} Hyprland config file START ${NC}"
 if [ ! -f ~/.config/hypr/hyprland.conf ]; then
 mkdir -p ~/.config/hypr
 cat << "HYPRLANDCONFIG" > ~/.config/hypr/hyprland.conf
-# This is an Hyprland config file.
+# Hyprland Configuring File.
 # Refer to the wiki for more information.
 # https://wiki.hyprland.org/Configuring/Configuring-Hyprland/
 
 # Please note not all available settings / options are set here.
-# For a full list, see the wiki
+# For a full list, see the wiki at https://wiki.hyprland.org
 
-# You can split this configuration into multiple files
-# Create your files separately and then link them to this file like this:
-# source = ~/.config/hypr/myColors.conf
+# Split configuration into multiple files and source them.
+# source = ~/.config/hypr/ColorsHyprland.conf
 
 
 ################
@@ -239,8 +238,10 @@ $browser = google-chrome
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
+exec-once = dbus-update-activation-environment --systemd --all
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
+# exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
+
 
 exec = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
 exec-once = waybar
@@ -249,11 +250,14 @@ exec-once = dunst
 # exec-once = nm-applet
 # exec-once = blueman-applet
 
+exec-once = [workspace special silent] kitty
+
+
 #############################
 ### ENVIRONMENT VARIABLES ###
 #############################
 
-# See https://wiki.hyprland.org/Configuring/Environment-variables/
+# https://wiki.hyprland.org/Configuring/Environment-variables/
 
 env = XCURSOR_SIZE,24
 env = HYPRCURSOR_SIZE,24
@@ -267,8 +271,8 @@ env = HYPRCURSOR_SIZE,24
 
 # https://wiki.hyprland.org/Configuring/Variables/#general
 general {
-    gaps_in = 3
-    gaps_out = 2
+    gaps_in = 4
+    gaps_out = 4
 
     border_size = 1
 
@@ -276,8 +280,8 @@ general {
     col.active_border = rgba(216bb7cc) rgba(#388abecc) 45deg
     col.inactive_border = rgba(3e4c55c9)
 
-    # Set to true enable resizing windows by clicking and dragging on borders and gaps
-    resize_on_border = false
+    # Set to true or false to enable resizing windows by clicking and dragging on borders and gaps
+    resize_on_border = true
 
     # https://wiki.hyprland.org/Configuring/Tearing/
     allow_tearing = false
@@ -303,7 +307,7 @@ decoration {
     blur {
         enabled = true
         size = 3
-        passes = 1
+        passes = 2
 
         vibrancy = 0.1696
     }
@@ -389,12 +393,16 @@ device {
 # https://wiki.hyprland.org/Configuring/Binds/
 # Mod list - SHIFT, CAPS, CTRL/CONTROL, ALT, MOD2, MOD3, SUPER/WIN/LOGO/MOD4, MOD5, Return, 
 
-$mainMod = SUPER # Sets "Windows" key as main modifier
+# Sets the modifier keys
+$mainMod = SUPER
+$secondMod = SHIFT
+$thirdMod = ALT
+$thirdMod = CTRL
 
 # https://wiki.hyprland.org/Configuring/Binds/
 bind = $mainMod, Return, exec, $terminal
 bind = $mainMod, W, killactive,
-bind = $mainMod, M, exit,
+#bind = $mainMod, M, exit,
 bind = $mainMod, E, exec, $filemanager
 bind = $mainMod, F, togglefloating,
 bind = $mainMod, R, exec, $runmenu
@@ -420,20 +428,22 @@ bind = $mainMod, 9, workspace, 9
 bind = $mainMod, 0, workspace, 10
 
 # Move active window to a workspace with mainMod + SHIFT + [0-9]
-bind = $mainMod SHIFT, 1, movetoworkspace, 1
-bind = $mainMod SHIFT, 2, movetoworkspace, 2
-bind = $mainMod SHIFT, 3, movetoworkspace, 3
-bind = $mainMod SHIFT, 4, movetoworkspace, 4
-bind = $mainMod SHIFT, 5, movetoworkspace, 5
-bind = $mainMod SHIFT, 6, movetoworkspace, 6
-bind = $mainMod SHIFT, 7, movetoworkspace, 7
-bind = $mainMod SHIFT, 8, movetoworkspace, 8
-bind = $mainMod SHIFT, 9, movetoworkspace, 9
-bind = $mainMod SHIFT, 0, movetoworkspace, 10
+bind = $mainMod $secondMod, 1, movetoworkspace, 1
+bind = $mainMod $secondMod, 2, movetoworkspace, 2
+bind = $mainMod $secondMod, 3, movetoworkspace, 3
+bind = $mainMod $secondMod, 4, movetoworkspace, 4
+bind = $mainMod $secondMod, 5, movetoworkspace, 5
+bind = $mainMod $secondMod, 6, movetoworkspace, 6
+bind = $mainMod $secondMod, 7, movetoworkspace, 7
+bind = $mainMod $secondMod, 8, movetoworkspace, 8
+bind = $mainMod $secondMod, 9, movetoworkspace, 9
+bind = $mainMod $secondMod, 0, movetoworkspace, 10
 
 # Special Workspaces (ScratchPad)
 bind = $mainMod, S, togglespecialworkspace, magic
-bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+bind = $mainMod $secondMod, S, movetoworkspace, special:magic
+
+bind = $secondMod, X, togglespecialworkspace
 
 # Scroll through existing workspaces with mainMod + scroll
 bind = $mainMod, mouse_down, workspace, e+1
@@ -448,9 +458,9 @@ binde = , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SIN
 binde = , XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
 binde = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle || notify-send -u low "Audio muted" " "
 
-bind = $mainMod ALT, up, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+
-bind = $mainMod ALT, down, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-bind = $mainMod ALT, M, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bind = $mainMod $thirdMod, up, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+
+bind = $mainMod $thirdMod, down, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
+bind = $mainMod $thirdMod, M, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 # XF86 Audio & Brightness keys
 bind = , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+
@@ -480,15 +490,29 @@ bind = $mainMod, B, exec, $browser
 # https://wiki.hyprland.org/Configuring/Window-Rules/
 # https://wiki.hyprland.org/Configuring/Workspace-Rules/
 
+#windowrulev2 = suppressevent maximize, class:.*
+
+
+# Float Windowrule
+windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)$
+windowrulev2 = float,size 65% 65%,floatpos center,noborder,norounding,class:^(nwg-look)$
+windowrulev2 = float,class:(org.pulseaudio.pavucontrol)
+windowrulev2 = float,class:(blueman-manager)
+
+windowrulev2 = float,class:(org.qbittorrent.qBittorrent)
+windowrulev2 = float,class:(anki)
+
+
+# Special Windowrule
+windowrulev2 = idleinhibit fullscreen, class:.* # if a window is fullscreen, don't idle
+
+
+# Windowrule Examples
 # Example windowrule v1
 # windowrule = float, ^(kitty)$
 
 # Example windowrule v2
 # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-
-windowrulev2 = suppressevent maximize, class:.* # You'll probably like this.
-
-windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)$
 
 
 HYPRLANDCONFIG
