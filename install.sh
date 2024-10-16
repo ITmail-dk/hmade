@@ -102,7 +102,7 @@ sudo apt -y install sddm --no-install-recommends
 
 sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev swaybg swayidle swaylock xwayland
 
-sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq
+sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq xprop
 
 sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils
 
@@ -216,15 +216,14 @@ cat << "HYPRLANDCONFIG" > ~/.config/hypr/hyprland.conf
 ### MONITORS ###
 ################
 
-# See https://wiki.hyprland.org/Configuring/Monitors/
+# https://wiki.hyprland.org/Configuring/Monitors/
 monitor=,preferred,auto,1
 
+####################
+# Default Programs #
+####################
 
-###################
-### MY PROGRAMS ###
-###################
-
-# See https://wiki.hyprland.org/Configuring/Keywords/
+# https://wiki.hyprland.org/Configuring/Keywords/
 
 # Set programs that you use
 $terminal = kitty
@@ -244,9 +243,9 @@ exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESK
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
 
 exec = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
-
-exec-once = dunst
 exec-once = waybar
+exec-once = dunst
+
 # exec-once = nm-applet
 # exec-once = blueman-applet
 
@@ -273,14 +272,14 @@ general {
 
     border_size = 1
 
-    # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
+    # https://wiki.hyprland.org/Configuring/Variables/#variable-types
     col.active_border = rgba(216bb7cc) rgba(#388abecc) 45deg
     col.inactive_border = rgba(3e4c55c9)
 
     # Set to true enable resizing windows by clicking and dragging on borders and gaps
     resize_on_border = false
 
-    # https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+    # https://wiki.hyprland.org/Configuring/Tearing/
     allow_tearing = false
 
     # https://wiki.hyprland.org/Configuring/Dwindle-Layout/
@@ -314,7 +313,7 @@ decoration {
 animations {
     enabled = true
 
-    # Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+    # Default animations, for more see https://wiki.hyprland.org/Configuring/Animations/
 
     bezier = myBezier, 0.05, 0.9, 0.1, 1.05
 
@@ -326,13 +325,13 @@ animations {
     animation = workspaces, 1, 6, default
 }
 
-# See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+# https://wiki.hyprland.org/Configuring/Dwindle-Layout/
 dwindle {
     pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # You probably want this
 }
 
-# See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+# https://wiki.hyprland.org/Configuring/Master-Layout/
 master {
     new_status = master
 }
@@ -340,7 +339,7 @@ master {
 # https://wiki.hyprland.org/Configuring/Variables/#misc
 misc {
     force_default_wallpaper = -1 # Set to 0 or 1 to disable the anime mascot wallpapers
-    disable_hyprland_logo = false # If true disables the random hyprland logo / anime girl background. :(
+    disable_hyprland_logo = true # (true or false) If true disables the random hyprland logo / anime girl background. :(
 }
 
 
@@ -386,12 +385,13 @@ device {
 ####################
 ### KEYBINDINGSS ###
 ####################
-# See https://wiki.hyprland.org/Configuring/Keywords/
-# Mod list - SHIFT, CAPS, CTRL/CONTROL, ALT, MOD2, MOD3, SUPER/WIN/LOGO/MOD4, MOD5
+# https://wiki.hyprland.org/Configuring/Keywords/
+# https://wiki.hyprland.org/Configuring/Binds/
+# Mod list - SHIFT, CAPS, CTRL/CONTROL, ALT, MOD2, MOD3, SUPER/WIN/LOGO/MOD4, MOD5, Return, 
 
 $mainMod = SUPER # Sets "Windows" key as main modifier
 
-# Binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+# https://wiki.hyprland.org/Configuring/Binds/
 bind = $mainMod, Return, exec, $terminal
 bind = $mainMod, W, killactive,
 bind = $mainMod, M, exit,
@@ -431,7 +431,7 @@ bind = $mainMod SHIFT, 8, movetoworkspace, 8
 bind = $mainMod SHIFT, 9, movetoworkspace, 9
 bind = $mainMod SHIFT, 0, movetoworkspace, 10
 
-# Special Workspace (scratchpad)
+# Special Workspaces (ScratchPad)
 bind = $mainMod, S, togglespecialworkspace, magic
 bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 
@@ -443,15 +443,10 @@ bind = $mainMod, mouse_up, workspace, e-1
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
 
-
-bind = $mainMod, B, exec, $browser
-
-
 # Audio
 binde = , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+
 binde = , XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
 binde = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle || notify-send -u low "Audio muted" " "
-
 
 bind = $mainMod ALT, up, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+
 bind = $mainMod ALT, down, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
@@ -471,15 +466,19 @@ bind = , XF86AudioPrev, exec, playerctl previous
 bind = , XF86MonBrightnessUp, exec, brightnessctl -q s +10%
 bind = , XF86MonBrightnessDown, exec, brightnessctl -q s 10%-
 
-# Lockdown
-bind = , XF86Lock, exec, hyprlock # Open screenlock
+# Lockdown / Screenlock
+bind = , XF86Lock, exec, hyprlock
+bind = , l, exec, hyprlock
 
-##############################
-### WINDOWS AND WORKSPACES ###
-##############################
+# Open Programs
+bind = $mainMod, B, exec, $browser
 
-# See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-# See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
+######################################
+### RULES - WINDOWS AND WORKSPACES ###
+######################################
+
+# https://wiki.hyprland.org/Configuring/Window-Rules/
+# https://wiki.hyprland.org/Configuring/Workspace-Rules/
 
 # Example windowrule v1
 # windowrule = float, ^(kitty)$
@@ -491,7 +490,7 @@ windowrulev2 = suppressevent maximize, class:.* # You'll probably like this.
 
 windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)$
 
-#source = ~/.config/hypr/autostart.conf
+
 HYPRLANDCONFIG
 
 else 
