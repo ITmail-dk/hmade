@@ -100,7 +100,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 sudo apt -y install sddm --no-install-recommends
 
-sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev swaybg swayidle swaylock xwayland
+sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev swaybg swayidle xwayland
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq xprop
 
@@ -468,7 +468,7 @@ bind = , XF86MonBrightnessDown, exec, brightnessctl -q s 10%-
 
 # Lockdown / Screenlock
 bind = , XF86Lock, exec, hyprlock
-bind = , l, exec, hyprlock
+bind = $mainMod, l, exec, hyprlock
 
 # Open Programs
 bind = $mainMod, B, exec, $browser
