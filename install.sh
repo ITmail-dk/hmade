@@ -1759,4 +1759,3 @@ rm $font_name.zip
 cd ~
 
 echo -e "${GREEN}Installation complete ready to restart.${NC}"
-done
