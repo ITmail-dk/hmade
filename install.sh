@@ -418,6 +418,12 @@ bind = $mainMod, right, movefocus, r
 bind = $mainMod, up, movefocus, u
 bind = $mainMod, down, movefocus, d
 
+# Move focus window with mainMod + secondMod + arrow keys
+bind = $mainMod $secondMod, left, movewindow, l
+bind = $mainMod $secondMod, right, movewindow, r
+bind = $mainMod $secondMod, up, movewindow, u
+bind = $mainMod $secondMod, down, movewindow, d
+
 # Switch workspaces with mainMod + [0-9]
 bind = $mainMod, 1, workspace, 1
 bind = $mainMod, 2, workspace, 2
