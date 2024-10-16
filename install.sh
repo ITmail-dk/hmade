@@ -70,23 +70,23 @@ fi
 sudo sed -i '/^deb cdrom:/s/^/#/' /etc/apt/sources.list
 
 # 2. Kontroller og tilføj Bookworm repositories, hvis de ikke allerede er der
-if ! grep -q "^deb http://deb.debian.org/debian/ bookworm main non-free-firmware" || grep -q "^deb https://deb.debian.org/debian/ bookworm main non-free-firmware" /etc/apt/sources.list; then
-    echo "Tilføjer Debian Bookworm repositories til /etc/apt/sources.list"
-    sudo tee -a /etc/apt/sources.list <<EOL
+#if ! grep -q "^deb http://deb.debian.org/debian/ bookworm main non-free-firmware" || grep -q "^deb https://deb.debian.org/debian/ bookworm main non-free-firmware" /etc/apt/sources.list; then
+#    echo "Tilføjer Debian Bookworm repositories til /etc/apt/sources.list"
+#    sudo tee -a /etc/apt/sources.list <<EOL
 
-deb http://deb.debian.org/debian/ bookworm main non-free-firmware
-deb-src http://deb.debian.org/debian/ bookworm main non-free-firmware
+#deb http://deb.debian.org/debian/ bookworm main non-free-firmware
+#deb-src http://deb.debian.org/debian/ bookworm main non-free-firmware
 
-deb http://security.debian.org/debian-security bookworm-security main non-free-firmware
-deb-src http://security.debian.org/debian-security bookworm-security main non-free-firmware
+#deb http://security.debian.org/debian-security bookworm-security main non-free-firmware
+#deb-src http://security.debian.org/debian-security bookworm-security main non-free-firmware
 
-deb http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
-deb-src http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
+#deb http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
+#deb-src http://deb.debian.org/debian/ bookworm-updates main non-free-firmware
 
-EOL
-else
-    echo "Debian Bookworm repositories er allerede tilføjet."
-fi
+#EOL
+#else
+#    echo "Debian Bookworm repositories er allerede tilføjet."
+#fi
 
 # APT Add "contrib non-free" to the sources list
 if [ -f /etc/apt/sources.list.d/debian.sources ]; then
