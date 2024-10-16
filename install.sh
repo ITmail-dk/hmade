@@ -50,7 +50,7 @@ echo -e "${RED} ${NC}"
 if [ -f /etc/apt/sources.list ]; then
 	sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak.$(date +'%d-%m-%Y_%H%M%S')
  else
-    echo "Debian repositories ok."
+    echo "No Debian repositories sources.list"
 fi
 
 # 1. Deaktivér linjer med 'deb cdrom:' i /etc/apt/sources.list
