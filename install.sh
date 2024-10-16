@@ -424,9 +424,6 @@ bind = $mainMod $secondMod, right, movewindow, r
 bind = $mainMod $secondMod, up, movewindow, u
 bind = $mainMod $secondMod, down, movewindow, d
 
-# Modify the window stack order of the active or specified window.
-bind = $mainMod, TAB, alterzorder,
-
 # Switch workspaces with mainMod + [0-9]
 bind = $mainMod, 1, workspace, 1
 bind = $mainMod, 2, workspace, 2
