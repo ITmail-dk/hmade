@@ -237,7 +237,7 @@ exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESK
 
 
 exec = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
-exec-once = waybar
+exec-once = ~/.config/waybar/auto-reload-waybar.sh
 exec-once = dunst
 
 # exec-once = nm-applet
@@ -359,9 +359,9 @@ input {
     sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
 
     touchpad {
-    	tap-to-click = true
-     	disable_while_typing = true
-    	clickfinger_behavior = false
+	tap-to-click = true
+	disable_while_typing = true
+	clickfinger_behavior = false
         natural_scroll = false
 	scroll_factor = 1
     }
@@ -488,9 +488,9 @@ bind = $mainMod, B, exec, $browser
 
 
 # Float Windowrule
-windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)$
-windowrulev2 = float,size 65% 65%,floatpos center,noborder,norounding,class:^(nwg-look)$
-windowrulev2 = float,class:(org.pulseaudio.pavucontrol)
+windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)
+windowrulev2 = float,floatpos center,noborder,norounding,class:^(nwg-look)
+windowrulev2 = float,floatpos center,noborder,norounding,class:(org.pulseaudio.pavucontrol)
 windowrulev2 = float,class:(blueman-manager)
 
 windowrulev2 = float,class:(org.qbittorrent.qBittorrent)
@@ -519,43 +519,41 @@ fi
 if [ ! -f ~/.config/waybar/config.jsonc ]; then
 mkdir -p ~/.config/waybar
 cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
-# Waybar Configuring File.
-# https://github.com/Alexays/Waybar
+//# Waybar Configuring File.
+//# https://github.com/Alexays/Waybar
 
 // -*- mode: jsonc -*-
 {
     // "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 28, // Waybar height (to be removed for auto height)
-    "width": 980, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    "margin-top": 10,
+    //"width": 980, // Waybar width
+    "spacing": 5, // Gaps between modules (5px)
+    "margin-top": 0,
+    "margin-bottom": 10,
+    "margin-left": 10,
+    "margin-right": 10,
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/mode",
-        "custom/media"
+        "hyprland/mode"
     ],
     "modules-center": [
         "hyprland/window"
     ],
     "modules-right": [
         "mpd",
-        "idle_inhibitor",
-        "pulseaudio",
+	"pulseaudio",
         "network",
-        "power-profiles-daemon",
         "cpu",
         "memory",
         "temperature",
         "backlight",
         "keyboard-state",
-        "hyprland/language",
         "battery",
         "battery#bat2",
-        "clock",
         "tray",
-        "custom/power"
+        "clock"
     ],
     "keyboard-state": {
         "numlock": true,
@@ -732,8 +730,9 @@ fi
 if [ ! -f ~/.config/waybar/style.css ]; then
 mkdir -p ~/.config/waybar
 cat << "WAYBARCONFIGSTYLE" > ~/.config/waybar/style.css
-# Waybar Sytle Configuring File.
-# https://github.com/Alexays/Waybar
+/* Waybar Sytle Configuring File.
+https://github.com/Alexays/Waybar
+*/
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
@@ -1069,6 +1068,48 @@ else
 	echo "Waybar style.css already exists."
 fi
 
+# Waybar Style File
+if [ ! -f ~/.config/waybar/auto-reload-waybar.sh ]; then
+mkdir -p ~/.config/waybar
+cat << "WAYBARAUTORELOAD" > ~/.config/waybar/auto-reload-waybar.sh
+#!/bin/bash
+
+# start waybar if not started
+if ! pgrep -x "waybar" > /dev/null; then
+	waybar &
+fi
+
+# current checksums
+current_checksum_config=$(md5sum ~/.config/waybar/config.jsonc)
+current_checksum_style=$(md5sum ~/.config/waybar/style.css)
+
+# loop forever
+while true; do
+	# new checksums
+	new_checksum_config=$(md5sum ~/.config/waybar/config.jsonc)
+	new_checksum_style=$(md5sum ~/.config/waybar/style.css)
+
+	# if checksums are different
+	if [ "$current_checksum_config" != "$new_checksum_config" ] || [ "$current_checksum_style" != "$new_checksum_style" ]; then
+		# kill waybar
+		killall waybar
+
+		# start waybar
+		waybar &
+
+		# update checksums
+		current_checksum_config=$new_checksum_config
+		current_checksum_style=$new_checksum_style
+	fi
+done
+
+WAYBARAUTORELOAD
+
+chmod +x ~/.config/waybar/auto-reload-waybar.sh
+
+else 
+	echo "Waybar auto reload already exists."
+fi
 
 echo -e "${GREEN} Kitty config file START ${NC}"
 
@@ -1718,3 +1759,4 @@ rm $font_name.zip
 cd ~
 
 echo -e "${GREEN}Installation complete ready to restart.${NC}"
+done
