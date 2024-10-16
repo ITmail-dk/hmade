@@ -47,7 +47,9 @@ echo -e "${RED} "
 echo -e "${RED}-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-"
 echo -e "${RED} ${NC}"
 
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak.$(date +'%d-%m-%Y_%H%M%S')
+if [ -f /etc/apt/sources.list ]; then
+	sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak.$(date +'%d-%m-%Y_%H%M%S')
+fi
 
 # 1. Deaktivér linjer med 'deb cdrom:' i /etc/apt/sources.list
 sudo sed -i '/^deb cdrom:/s/^/#/' /etc/apt/sources.list
