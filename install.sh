@@ -769,7 +769,7 @@ https://github.com/Alexays/Waybar
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: IBMPlexMono,FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: IBMPlexMono, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
 }
 
