@@ -97,7 +97,11 @@ sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-util
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 
-sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils
+sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils gsettings
+
+# May be deleted in the future
+# wlr-randr --dryrun
+sudo apt install -y wlr-randr
 
 # Network
 sudo apt install -y network-manager 
@@ -239,9 +243,8 @@ $browser = google-chrome
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
-exec-once = dbus-update-activation-environment --systemd --all
-exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-# exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
+#exec-once = dbus-update-activation-environment --systemd --all
+exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
 
 
 exec = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
@@ -262,6 +265,7 @@ exec-once = [workspace special silent] kitty
 
 env = XCURSOR_SIZE,24
 env = HYPRCURSOR_SIZE,24
+env = XDG_CURRENT_DESKTOP,Hyprland
 
 
 #####################
@@ -492,9 +496,9 @@ bind = $mainMod, l, exec, hyprlock
 # Open Programs
 bind = $mainMod, B, exec, $browser
 
-######################################
-### RULES - WINDOWS AND WORKSPACES ###
-######################################
+#############################################
+### RULES - WINDOWS, LAYER AND WORKSPACES ###
+#############################################
 
 # https://wiki.hyprland.org/Configuring/Window-Rules/
 # https://wiki.hyprland.org/Configuring/Workspace-Rules/
@@ -502,7 +506,7 @@ bind = $mainMod, B, exec, $browser
 #windowrulev2 = suppressevent maximize, class:.*
 
 
-# Float Windowrule
+# Float Windowrules
 windowrulev2 = float,size 30% 50%,floatpos center,noborder,norounding,class:^(rofi|Rofi)
 windowrulev2 = float,floatpos center,noborder,norounding,class:^(nwg-look)
 windowrulev2 = float,floatpos center,noborder,norounding,class:(org.pulseaudio.pavucontrol)
@@ -511,19 +515,28 @@ windowrulev2 = float,class:(blueman-manager)
 
 
 
-# Special Windowrule
+# Special Windowrules
 windowrulev2 = idleinhibit fullscreen, class:.* # if a window is fullscreen, don't idle
+windowrulev2=move 0 0,title:^(flameshot)
+windowrulev2=nofullscreenrequest,title:^(flameshot)
 
+##############
+# Layerrules #
+##############
+# https://wiki.hyprland.org/Configuring/Window-Rules/#layer-rules
+layerrule = noanim, rofi
 
-# Windowrule Examples
+#######################
+# Windowrule Examples #
+#######################
+
 # Example windowrule v1
 # windowrule = float, ^(kitty)$
 
 # Example windowrule v2
 # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
 
-# https://wiki.hyprland.org/Configuring/Window-Rules/#layer-rules
-layerrule = noanim, rofi
+
 
 HYPRLANDCONFIG
 
