@@ -651,7 +651,7 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         "spacing": 10
     },
     "clock": {
-        // "timezone": "America/New_York",
+        // "timezone": "Europe/Copenhagen",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%d-%m-%Y}"
     },
@@ -669,11 +669,13 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""]
+	"tooltip": false
     },
     "backlight": {
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
+	"tooltip": false
     },
     "battery": {
         "states": {
@@ -689,6 +691,7 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
+	"tooltip": false
     },
     "battery#bat2": {
         "bat": "BAT2"
@@ -712,6 +715,7 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
+	"tooltip": false
     },
     "pulseaudio": {
 		"scroll-step": 5,
@@ -765,7 +769,7 @@ https://github.com/Alexays/Waybar
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: IBMPlexMono,FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
 }
 
