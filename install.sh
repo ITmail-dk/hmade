@@ -97,7 +97,7 @@ sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-util
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 
-sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils gsettings
+sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils
 
 # May be deleted in the future
 # wlr-randr --dryrun
