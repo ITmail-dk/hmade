@@ -408,11 +408,13 @@ $fourthdMod = CTRL
 
 # https://wiki.hyprland.org/Configuring/Binds/
 bind = $mainMod, Return, exec, $terminal
-bind = $mainMod, W, killactive,
-#bind = $mainMod, M, exit,
+bind = $mainMod, B, exec, $browser
 bind = $mainMod, E, exec, $filemanager
-bind = $mainMod, F, togglefloating,
 bind = $mainMod, R, exec, $runmenu
+
+bind = $mainMod, W, killactive,
+bind = $mainMod, F, togglefloating,
+
 bind = $mainMod, P, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
 
@@ -427,6 +429,11 @@ bind = $mainMod $secondMod, left, movewindow, l
 bind = $mainMod $secondMod, right, movewindow, r
 bind = $mainMod $secondMod, up, movewindow, u
 bind = $mainMod $secondMod, down, movewindow, d
+
+bind = $mainMod, minus, centerwindow
+
+bind = $mainMod $secondMod $thirdMod, left, movetoworkspace,-1
+bind = $mainMod $secondMod $thirdMod, right, movetoworkspace,+1
 
 # Switch workspaces with mainMod + [0-9]
 bind = $mainMod, 1, workspace, 1
@@ -494,7 +501,7 @@ bind = , XF86Lock, exec, hyprlock
 bind = $mainMod, l, exec, hyprlock
 
 # Open Programs
-bind = $mainMod, B, exec, $browser
+
 
 #############################################
 ### RULES - WINDOWS, LAYER AND WORKSPACES ###
