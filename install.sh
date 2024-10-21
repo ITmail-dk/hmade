@@ -414,6 +414,7 @@ bind = $mainMod, R, exec, $runmenu
 
 bind = $mainMod, W, killactive,
 bind = $mainMod, F, togglefloating,
+bind = $mainMod $secondMod, F, fullscreen,
 
 bind = $mainMod, P, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
@@ -521,17 +522,20 @@ windowrulev2 = size 50% 40%, class:(org.pulseaudio.pavucontrol)
 windowrulev2 = float,class:(blueman-manager)
 
 
-
 # Special Windowrules
 windowrulev2 = idleinhibit fullscreen, class:.* # if a window is fullscreen, don't idle
 windowrulev2=move 0 0,title:^(flameshot)
 windowrulev2=nofullscreenrequest,title:^(flameshot)
+
 
 ##############
 # Layerrules #
 ##############
 # https://wiki.hyprland.org/Configuring/Window-Rules/#layer-rules
 layerrule = noanim, rofi
+
+layerrule = blur, ^(waybar)$
+
 
 #######################
 # Windowrule Examples #
@@ -563,12 +567,12 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
     // "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 28, // Waybar height (to be removed for auto height)
-    //"width": 980, // Waybar width
-    "spacing": 5, // Gaps between modules (5px)
-    "margin-top": 0,
-    "margin-bottom": 10,
-    "margin-left": 10,
-    "margin-right": 10,
+    //"width": 1400, // Waybar width
+    "spacing": 5, // Gaps between modules
+    "margin-top": 6,
+    "margin-bottom": 6,
+    "margin-left": 6,
+    "margin-right": 6,
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
@@ -781,7 +785,7 @@ https://github.com/Alexays/Waybar
 }
 
 window#waybar {
-    background-color: rgba(23, 36, 45, 0.8);
+    background-color: rgba(13, 32, 60, 0.8);
     border-bottom: 0px solid rgba(23, 36, 45, 0.55);
     color: #ffffff;
     transition-property: background-color;
