@@ -192,7 +192,7 @@ echo 'alias upup="sudo apt update && sudo apt upgrade -y && sudo apt autoremove 
 echo 'bind '"'"'"\C-f":"open "$(fzf)"\n"'"'" >> ~/.bashrc
 
 # Make some directories for later use
-mkdir -p ~/.local/src ~/.local/bin
+mkdir -p ~/.local/src ~/.local/bin ~/.fonts ~/Wallpapers
 
 # # # # # Config folders & files
 
@@ -505,7 +505,7 @@ bind = , XF86MonBrightnessDown, exec, brightnessctl -q s 10%-
 
 # Lockdown / Screenlock
 bind = , XF86Lock, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6
-bind = $mainMod, l, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6
+bind = $mainMod, l, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6 -i $(find $HOME/Wallpapers -type f | shuf -n 1)
 
 # Open Programs
 
