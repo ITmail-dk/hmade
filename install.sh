@@ -192,7 +192,7 @@ echo 'alias upup="sudo apt update && sudo apt upgrade -y && sudo apt autoremove 
 echo 'bind '"'"'"\C-f":"open "$(fzf)"\n"'"'" >> ~/.bashrc
 
 # Make some directories for later use
-mkdir -p ~/.local/src ~/.local/bin ~/.fonts ~/Wallpapers
+mkdir -p ~/.local/src ~/.local/bin
 
 # # # # # Config folders & files
 
@@ -504,8 +504,14 @@ bind = , XF86MonBrightnessUp, exec, brightnessctl -q s +10%
 bind = , XF86MonBrightnessDown, exec, brightnessctl -q s 10%-
 
 # Lockdown / Screenlock
-bind = , XF86Lock, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6
+bind = , XF86Lock, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6 -i $(find $HOME/Wallpapers -type f | shuf -n 1)
 bind = $mainMod, l, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6 -i $(find $HOME/Wallpapers -type f | shuf -n 1)
+
+# List out switches via "hyprctl devices"
+#bindl=,switch:<switch-name>,exec,<command>
+
+# Switch Example, closing the lid on the laptop will turn off the laptop screen
+#bindl=,switch:<switch-name>, exec, sleep 1 && hyprctl dispatch dpms off eDP-1
 
 # Open Programs
 
@@ -1601,8 +1607,7 @@ echo -e "${GREEN}Kitty config file END${NC}"
 echo "$USER ALL=(ALL) NOPASSWD: /sbin/shutdown now, /sbin/reboot" | sudo tee /etc/sudoers.d/$USER && sudo visudo -c -f /etc/sudoers.d/$USER
 
 
-echo -e "${GREEN}Wallpapers${NC}"
-
+# Wallpapers
 if [ ! -d ~/Wallpapers ]; then
 mkdir -p ~/Wallpapers
 wget -O ~/Wallpapers/default_wallpaper.jpg https://github.com/ITmail-dk/qmade/blob/main/default_wallpaper_by_natalia-y_on_unsplash.jpg?raw=true
@@ -1611,11 +1616,6 @@ else
 	echo "Wallpapers folder already exists."
 fi
 
-#if [ -f ~/.fehbg ]; then
-#    . ~/.fehbg
-#else
-#    feh --bg-scale ~/Wallpapers/default_wallpaper.jpg
-#fi
 
 echo -e "${YELLOW} auto-new-wallpaper-and-colors BIN START ${NC}"
 sudo bash -c 'cat << "AUTONEWWALLPAPERANDCOLORSBIN" >> /usr/local/bin/auto-new-wallpaper-and-colors
