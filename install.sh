@@ -93,7 +93,8 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 sudo apt -y install sddm --no-install-recommends
 
-sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar wlogout hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-hyprland libinput-bin libinput-dev swaybg swayidle xwayland
+sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
+sudo apt install -y wlogout swaybg swayidle swaylock xwayland
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 
@@ -121,7 +122,7 @@ sudo apt install -y pipewire wireplumber pavucontrol pipewire-alsa pipewire-puls
 systemctl enable --user --now pipewire.socket pipewire-pulse.socket wireplumber.service
 
 # Bluetooth
-sudo apt install -y bluetooth bluez-firmware blueman bluez bluez-tools bluez-cups bluez-obexd bluez-meshd pulseaudio-module-bluetooth libspa-0.2-bluetooth libspa-0.2-jack
+sudo apt install -y bluetooth bluez-firmware blueman bluez bluez-tools bluez-cups bluez-obexd bluez-meshd pulseaudio-module-bluetooth libspa-0.2-bluetooth libspa-0.2-jack libspa-0.2-libcamera
 
 
 echo -e "${GREEN} CPU Microcode install ${NC}"
@@ -164,7 +165,7 @@ install_gpu_driver
 sleep 1
 #clear
 
-cd /tmp/ && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt install -y /tmp/google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb
+cd /tmp/ && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt install -y /tmp/google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb && cd ~
 
 echo -e "${GREEN} Set User folders via xdg-user-dirs-update & xdg-mime default. ${NC}"
 # ls /usr/share/applications/ Find The Default run.: "xdg-mime query default inode/directory"
@@ -186,11 +187,14 @@ sudo sed -i 's+GRUB_TIMEOUT=5+GRUB_TIMEOUT=1+g' /etc/default/grub && sudo update
 echo -e "${GREEN} Alias echo to ~/.bashrc ${NC}"
 
 echo 'alias ls="ls --color=auto --group-directories-first -v -lah"' >> ~/.bashrc
+echo 'alias df="df --human-readable --print-type"' >> ~/.bashrc
 echo 'alias upup="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y"' >> ~/.bashrc
 echo 'bind '"'"'"\C-f":"open "$(fzf)"\n"'"'" >> ~/.bashrc
 
+# Make some directories for later use
+mkdir -p ~/.local/src ~/.local/bin
 
-# Config folders & files
+# # # # # Config folders & files
 
 echo -e "${GREEN} Hyprland config file START ${NC}"
 
@@ -304,7 +308,7 @@ decoration {
     active_opacity = 1.0
     inactive_opacity = 1.0
 
-    drop_shadow = true
+    drop_shadow = false
     shadow_range = 4
     shadow_render_power = 3
     col.shadow = rgba(1a1a1aee)
@@ -413,8 +417,8 @@ bind = $mainMod, E, exec, $filemanager
 bind = $mainMod, R, exec, $runmenu
 
 bind = $mainMod, W, killactive,
-bind = $mainMod, F, togglefloating,
-bind = $mainMod $secondMod, F, fullscreen,
+bind = $mainMod, F, fullscreen,
+bind = $mainMod $secondMod, F, togglefloating,
 
 bind = $mainMod, P, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
@@ -464,6 +468,8 @@ bind = $mainMod $secondMod, 0, movetoworkspace, 10
 bind = $mainMod, S, togglespecialworkspace, magic
 bind = $mainMod $secondMod, S, movetoworkspace, special:magic
 
+bind = $mainMod $secondMod, A, togglespecialworkspace, audio
+
 bind = $secondMod, X, togglespecialworkspace
 
 # Scroll through existing workspaces with mainMod + scroll
@@ -498,8 +504,8 @@ bind = , XF86MonBrightnessUp, exec, brightnessctl -q s +10%
 bind = , XF86MonBrightnessDown, exec, brightnessctl -q s 10%-
 
 # Lockdown / Screenlock
-bind = , XF86Lock, exec, hyprlock
-bind = $mainMod, l, exec, hyprlock
+bind = , XF86Lock, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6
+bind = $mainMod, l, exec, swaylock -f -L -e -c 000000 --indicator-radius 250 --indicator-thickness 6
 
 # Open Programs
 
