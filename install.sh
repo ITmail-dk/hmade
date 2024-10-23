@@ -537,7 +537,7 @@ windowrulev2 = float,class:(blueman-manager)
 # Special Windowrules
 windowrulev2 = idleinhibit fullscreen, class:.* # if a window is fullscreen, don't idle
 windowrulev2=move 0 0,title:^(flameshot)
-windowrulev2=nofullscreenrequest,title:^(flameshot)
+
 
 
 ##############
