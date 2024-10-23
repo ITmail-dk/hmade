@@ -131,7 +131,7 @@ sudo apt install -y wlogout swaybg swayidle swaylock xwayland
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 
-sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion
+sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion firefox-esr
 
 # May be deleted in the future
 # wlr-randr --dryrun
@@ -271,6 +271,7 @@ $terminal = kitty
 $filemanager = thunar
 $runmenu = rofi -modi "drun,run,window,filebrowser" -show drun # Switch between -modi... Default key CTRL+TAB
 $browser = google-chrome
+$browser2 = firefox-esr
 
 
 #################
@@ -446,6 +447,7 @@ $fourthdMod = CTRL
 # https://wiki.hyprland.org/Configuring/Binds/
 bind = $mainMod, Return, exec, $terminal
 bind = $mainMod, B, exec, $browser
+bind = $mainMod $secondMod, B, exec, $browser2
 bind = $mainMod, E, exec, $filemanager
 bind = $mainMod, R, exec, $runmenu
 
