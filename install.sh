@@ -617,7 +617,7 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         }
     },
     "hyprland/workspaces": {
-		"format": "{icon}",
+		"format": "{id}",
 		"on-click": "activate",
 		"format-icons": {
 			"urgent": "",
