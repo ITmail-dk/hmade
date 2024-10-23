@@ -453,6 +453,8 @@ bind = $mainMod, W, killactive,
 bind = $mainMod, F, fullscreen,
 bind = $mainMod $secondMod, F, togglefloating,
 
+bind = $mainMod $secondMod, W, exec, swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
+
 bind = $mainMod, P, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
 
