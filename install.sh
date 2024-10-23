@@ -2,6 +2,31 @@
 #DEV TEST
 # nano /tmp/install.sh && chmod +x /tmp/install.sh && . /tmp/install.sh
 
+# Start the install *_:*:_*:*:_*_*:*:_*::*_*::*_*:_*::*_*:*:_:*:*_*:*:_*:*_:*:#
+
+# Whiptail colors
+export NEWT_COLORS='
+root=white,gray
+window=white,lightgray
+border=black,lightgray
+shadow=white,black
+button=white,blue
+actbutton=black,red
+compactbutton=black,
+title=black,
+roottext=black,magenta
+textbox=black,lightgray
+acttextbox=gray,white
+entry=lightgray,gray
+disentry=gray,lightgray
+checkbox=black,lightgray
+actcheckbox=white,blue
+emptyscale=,black
+fullscale=,red
+listbox=black,lightgray
+actlistbox=lightgray,gray
+actsellistbox=white,blue'
+
 # Set Echo colors
 # for c in {0..255}; do tput setaf $c; tput setaf $c | cat -v; echo =$c; done
 NC="\033[0m"
@@ -10,8 +35,6 @@ RED2="\033[38;5;196m"
 GREEN="\033[0;32m"
 YELLOW="\033[0;33m"
 BLUE="\033[0;94m"
-
-FULLUSERNAME=$(awk -v user="$USER" -F":" 'user==$1{print $5}' /etc/passwd | rev | cut -c 4- | rev)
 
 clear
 
@@ -36,6 +59,16 @@ trap error_handler ERR
 set -e
 
 # ------------------- > > >
+
+# Installation start screen
+FULLUSERNAME=$(awk -v user="$USER" -F":" 'user==$1{print $5}' /etc/passwd | rev | cut -c 4- | rev)
+
+if (whiptail --title "Installation of the Martin Hyprland Desktop" --yesno "Hi $FULLUSERNAME do you want to start \nthe installation of Hyprland Martin Andersen Desktop Environment, Hmade for short.! \n \nRemember you user must have sudo \naccess to run the installation." 13 50); then
+    echo -e "${GREEN} Okay, let's start the installation."
+else
+    exit 1
+fi
+
 
 clear
 echo -e "${RED} "
@@ -1809,4 +1842,32 @@ rm $font_name.zip
 # END
 cd ~
 
-echo -e "${GREEN}Installation complete ready to restart.${NC}"
+# Install closing screen ##### ##### ##### ##### ##### ##### ##### ##### ##### ####
+clear
+if (whiptail --title "Installation Complete" --yesno "Hmade Installation is complete. \nDo you want to restart the computer ?\n\nSome practical information. \nWindows key + Enter opens a terminal \nWindows key + B opens a web browser \nWindows key + W closes the active window" 15 60); then
+    cd ~
+    clear
+    echo -e "${RED} "
+    echo -e "${RED}-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-"
+    echo -e "${RED} "
+    echo -e "${RED}      Enter your user password, to continue if necessary"
+    echo -e "${RED} "
+    echo -e "${RED}-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-"
+    echo -e "${RED} ${NC}"
+    sudo reboot
+    echo -e "${GREEN}See you later alligator..."
+    echo -e "${GREEN} "
+    echo -e "${GREEN} ${NC}"
+else
+    cd ~
+    clear
+    echo -e "${GREEN} -'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-"
+    echo -e "${GREEN} "
+    echo -e "${GREEN}    You chose not to restart the computer, Installation complete."
+    echo -e "${GREEN}    			Ready to restart..."
+    echo -e "${GREEN} "
+    echo -e "${GREEN} -'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'-'- ${NC}"
+fi
+
+# Install Done ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##
+
