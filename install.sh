@@ -450,10 +450,10 @@ bind = $mainMod, E, exec, $filemanager
 bind = $mainMod, R, exec, $runmenu
 
 bind = $mainMod, W, killactive,
-bind = $mainMod, F, fullscreen, 2
+# 0 - fullscreen (takes your entire screen), 1 - maximize (keeps gaps and bar(s)), 2 - fullscreen (same as fullscreen except doesn't alter window's internal fullscreen state)
 bind = $mainMod, F, fullscreen, 1
-bind = $mainMod, F, fullscreen,
-bind = $mainMod $secondMod, F, togglefloating,
+bind = $mainMod $secondMod, F, fullscreen, 0
+bind = $mainMod $fourthdMod, F, togglefloating,
 
 bind = $mainMod $secondMod, W, exec, swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
 
