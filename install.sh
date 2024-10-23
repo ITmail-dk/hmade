@@ -450,6 +450,7 @@ bind = $mainMod, E, exec, $filemanager
 bind = $mainMod, R, exec, $runmenu
 
 bind = $mainMod, W, killactive,
+bind = $mainMod, F, fullscreen, 2
 bind = $mainMod, F, fullscreen, 1
 bind = $mainMod, F, fullscreen,
 bind = $mainMod $secondMod, F, togglefloating,
