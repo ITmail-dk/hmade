@@ -98,7 +98,7 @@ sudo apt install -y wlogout swaybg swayidle swaylock xwayland
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 
-sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils
+sudo apt install -y thunar gvfs-backends xarchiver rofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion
 
 # May be deleted in the future
 # wlr-randr --dryrun
@@ -1167,7 +1167,7 @@ else
 	echo "Waybar auto reload already exists."
 fi
 
-echo -e "${GREEN} Kitty config file START ${NC}"
+# Kitty config file START
 
 if [ ! -f ~/.config/kitty/kitty.conf ]; then
 mkdir -p ~/.config/kitty/themes
@@ -1508,7 +1508,7 @@ else
 	echo "Kitty config already exists."
 fi
 
-echo -e "${GREEN}Kitty Theme.conf Start${NC}"
+# Kitty Theme.conf Start
 
 if [ ! -f $HOME/.config/kitty/themes/kittytheme.conf ]; then
 mkdir -p $HOME/.config/kitty/themes
@@ -1520,7 +1520,6 @@ cat << "KITTYTHEMECONF" > $HOME/.config/kitty/themes/kittytheme.conf
 ## license:  MIT
 ## upstream: https://github.com/catppuccin/kitty/blob/main/themes/mocha.conf
 ## blurb:    Soothing pastel theme for the high-spirited!
-
 
 
 # The basic colors
@@ -1601,7 +1600,7 @@ else
 	echo "kittytheme.conf file already exists."
 fi
 
-echo -e "${GREEN}Kitty config file END${NC}"
+# Kitty config file END
 
 # Add User NOPASSWD to shutdown now and reboot
 echo "$USER ALL=(ALL) NOPASSWD: /sbin/shutdown now, /sbin/reboot" | sudo tee /etc/sudoers.d/$USER && sudo visudo -c -f /etc/sudoers.d/$USER
@@ -1610,7 +1609,9 @@ echo "$USER ALL=(ALL) NOPASSWD: /sbin/shutdown now, /sbin/reboot" | sudo tee /et
 # Wallpapers
 if [ ! -d ~/Wallpapers ]; then
 mkdir -p ~/Wallpapers
-wget -O ~/Wallpapers/default_wallpaper.jpg https://github.com/ITmail-dk/qmade/blob/main/default_wallpaper_by_natalia-y_on_unsplash.jpg?raw=true
+wget -O ~/Wallpapers/default_wallpaper-1.jpg https://github.com/ITmail-dk/Wallpapers/blob/main/02291f01-d081-44e8-a397-db5c37d5111d.png?raw=true
+wget -O ~/Wallpapers/default_wallpaper-2.jpg https://github.com/ITmail-dk/Wallpapers/blob/main/473cae61-5c2f-4889-8425-c8a153999151.png?raw=true
+wget -O ~/Wallpapers/default_wallpaper-3.jpg https://github.com/ITmail-dk/Wallpapers/blob/main/d1acf8b6-c06f-477c-826e-95e63c374603.png?raw=true
 
 else 
 	echo "Wallpapers folder already exists."
