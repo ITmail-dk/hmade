@@ -830,9 +830,9 @@ https://github.com/Alexays/Waybar
 */
 
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: IBMPlexMono, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    /* `Nerd Font` is required to be installed for icons */
+    font-family: JetBrainsMono Nerd Font, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 
 window#waybar {
@@ -1222,7 +1222,7 @@ cat << "KITTYCONFIG" > ~/.config/kitty/kitty.conf
 
 background_opacity 0.98
 
-font_family      monospace
+font_family      JetBrainsMono Nerd Font
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
@@ -1836,7 +1836,7 @@ fi
 
 # IBM Plex Mono
 
-font_name=IBMPlexMono
+font_name=JetBrainsMono
 curl -OL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font_name.zip"
 mkdir -p  "$HOME/.fonts"
 unzip "$font_name.zip" -d "$HOME/.fonts/$font_name/"
