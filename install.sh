@@ -122,6 +122,7 @@ sudo sed -i 's/bookworm-updates/testing-updates/g' /etc/apt/sources.list
 
 export DEBIAN_FRONTEND=noninteractive
 
+# APT Install Start
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 sudo apt -y install sddm --no-install-recommends
@@ -129,9 +130,16 @@ sudo apt -y install sddm --no-install-recommends
 sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
 sudo apt install -y wlogout hyprpaper hyprcursor-util swayidle swaylock xwayland swaybg
 
-sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
-
+sudo apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion firefox-esr
+
+
+# Firmware
+sudo apt install -y firmware-linux firmware-linux-nonfree firmware-misc-nonfree
+
+# Firmware WiFi & Bluetooth
+sudo apt install -y firmware-iwlwifi firmware-atheros firmware-realtek
+
 
 # May be deleted in the future
 # wlr-randr --dryrun
