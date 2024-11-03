@@ -127,7 +127,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 sudo apt -y install sddm --no-install-recommends
 
 sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
-sudo apt install -y wlogout swaybg swayidle swaylock xwayland
+sudo apt install -y wlogout hyprpaper hyprcursor-util swayidle swaylock xwayland swaybg
 
 sudo apt install -y dbus acpi nwg-look xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 
@@ -285,16 +285,23 @@ $browser2 = firefox-esr
 #exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland
 
+# Wallpapers via HyprPaper (turn off for now)
+# https://wiki.hyprland.org/Hypr-Ecosystem/hyprpaper/
+
+#exec-once = hyprpaper
+#exec-once = hyprctl hyprpaper preload "$HOME/Wallpapers/Wallpaper.png"
+#exec-once = hyprctl hyprpaper wallpaper ",$HOME/Wallpapers/Wallpaper.png"
 
 exec = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
+
 exec-once = ~/.config/waybar/auto-reload-waybar.sh
 exec-once = dunst
 
 # exec-once = nm-applet
 # exec-once = blueman-applet
 
-exec-once = [workspace special silent] kitty
-
+#exec-once = [workspace special:magic silent] kitty
+#exec-once = [workspace special:audio silent] pavucontrol
 
 #############################
 ### ENVIRONMENT VARIABLES ###
@@ -508,9 +515,9 @@ bind = $mainMod $secondMod, 0, movetoworkspace, 10
 bind = $mainMod, S, togglespecialworkspace, magic
 bind = $mainMod $secondMod, S, movetoworkspace, special:magic
 
-bind = $mainMod $secondMod, A, togglespecialworkspace, audio
+bind = $mainMod $secondMod, A, togglespecialworkspace, special:audio
 
-bind = $secondMod, X, togglespecialworkspace
+bind = $secondMod $secondMod, X, togglespecialworkspace
 
 # Scroll through existing workspaces with mainMod + scroll
 bind = $mainMod, mouse_down, workspace, e+1
