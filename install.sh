@@ -747,13 +747,13 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""],
 	"tooltip": false
     },
     "backlight": {
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
 	"tooltip": false
     },
     "battery": {
@@ -769,7 +769,7 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
 	"tooltip": false
     },
     "battery#bat2": {
@@ -793,7 +793,7 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
 	"tooltip": false
     },
     "pulseaudio": {
