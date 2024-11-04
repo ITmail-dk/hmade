@@ -637,14 +637,15 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
     "height": 28, // Waybar height (to be removed for auto height)
     //"width": 1400, // Waybar width
     "spacing": 5, // Gaps between modules
-    "margin-top": 6,
+    "margin-top": 0,
     "margin-bottom": 6,
     "margin-left": 6,
     "margin-right": 6,
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/mode"
+        "hyprland/mode",
+	"hyprland/workspaces"
+        
     ],
     "modules-center": [
         "hyprland/window"
@@ -680,7 +681,7 @@ cat << "WAYBARCONFIG" > ~/.config/waybar/config.jsonc
 			"active": "",
 			"default": ""
 			},
-		"tooltip": false,
+		"tooltip": false
 	},
     "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
