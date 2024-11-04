@@ -127,23 +127,22 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 sudo apt -y install sddm --no-install-recommends
 
-sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils waybar hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
-sudo apt install -y wlogout hyprpaper hyprcursor-util swayidle swaylock xwayland swaybg
+sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
+sudo apt install -y wlogout hyprpaper hyprcursor-util waybar swayidle swaylock xwayland swaybg
 
 sudo apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
-sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion firefox-esr
+sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion wlr-randr
 
+sudo apt install -y firefox-esr remmina
+
+# May be deleted in the future
+#sudo apt install -y 
 
 # Firmware
 sudo apt install -y firmware-linux firmware-linux-nonfree firmware-misc-nonfree
 
 # Firmware WiFi & Bluetooth
 sudo apt install -y firmware-iwlwifi firmware-atheros firmware-realtek
-
-
-# May be deleted in the future
-# wlr-randr --dryrun
-sudo apt install -y wlr-randr
 
 # Network
 sudo apt install -y network-manager 
@@ -267,19 +266,6 @@ monitor=,preferred,auto,1
 xwayland {
   force_zero_scaling = true
 }
-
-####################
-# Default Programs #
-####################
-
-# https://wiki.hyprland.org/Configuring/Keywords/
-
-# Set programs that you use
-$terminal = kitty
-$filemanager = thunar
-$runmenu = wofi -GIm -S drun
-$browser = google-chrome
-$browser2 = firefox-esr
 
 
 #################
@@ -448,6 +434,20 @@ device {
 
 
 ####################
+# Default Programs #
+####################
+
+# https://wiki.hyprland.org/Configuring/Keywords/
+
+# Set programs that you use
+$terminal = kitty
+$filemanager = thunar
+$runmenu = wofi -GIm -S drun
+$browser = google-chrome
+$browser2 = firefox-esr
+$rdpmanager = remmina
+
+####################
 ### KEYBINDINGSS ###
 ####################
 # https://wiki.hyprland.org/Configuring/Keywords/
@@ -466,6 +466,7 @@ bind = $mainMod, B, exec, $browser
 bind = $mainMod $secondMod, B, exec, $browser2
 bind = $mainMod, E, exec, $filemanager
 bind = $mainMod, R, exec, $runmenu
+bind = $mainMod $secondMod, R, exec, $rdpmanager
 
 bind = $mainMod, W, killactive,
 # 0 - fullscreen (takes your entire screen), 1 - maximize (keeps gaps and bar(s)), 2 - fullscreen (same as fullscreen except doesn't alter window's internal fullscreen state)
