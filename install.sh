@@ -149,7 +149,9 @@ sudo apt install -y ceph-common nfs-common samba-common nmap
 
 # Printer
 sudo apt install -y system-config-printer cups cups-client cups-filters cups-pdf printer-driver-all
+sudo usermod -a -G lpadmin $USER
 
+# Polkit Agent
 sudo apt install -y mate-polkit --no-install-recommends
 #sudo apt install -y polkit-kde-agent-1 --no-install-recommends
 
@@ -279,7 +281,6 @@ exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CUR
 
 # Wallpapers via HyprPaper (turn off for now)
 # https://wiki.hyprland.org/Hypr-Ecosystem/hyprpaper/
-
 #exec-once = hyprpaper
 #exec-once = hyprctl hyprpaper preload "$HOME/Wallpapers/Wallpaper.png"
 #exec-once = hyprctl hyprpaper wallpaper ",$HOME/Wallpapers/Wallpaper.png"
@@ -472,7 +473,8 @@ bind = $mainMod, F, fullscreen, 1
 bind = $mainMod $secondMod, F, fullscreen, 0
 bind = $mainMod $fourthdMod, F, togglefloating,
 
-bind = $mainMod $secondMod, W, exec, swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
+bind = $mainMod $secondMod, W, exec, wal --cols16 darken -q -i $HOME/Wallpapers
+#bind = $mainMod $secondMod, W, exec, swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
 
 bind = $mainMod, P, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
@@ -1660,6 +1662,9 @@ fi
 # Add User NOPASSWD to shutdown now and reboot
 echo "$USER ALL=(ALL) NOPASSWD: /sbin/shutdown now, /sbin/reboot" | sudo tee /etc/sudoers.d/$USER && sudo visudo -c -f /etc/sudoers.d/$USER
 
+# PyWAL install via pipx
+pipx install pywal16
+pipx ensurepath
 
 # Wallpapers
 if [ ! -d ~/Wallpapers ]; then
