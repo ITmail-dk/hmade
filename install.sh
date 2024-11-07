@@ -128,15 +128,15 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 sudo apt -y install sddm --no-install-recommends
 
 sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
-sudo apt install -y wlogout hyprpaper hyprcursor-util waybar swayidle swaylock xwayland swaybg
+sudo apt install -y wlogout hyprpaper hyprcursor-util
 
 sudo apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
-sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion coreutils wlr-randr
+sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion wlr-randr coreutils imagemagick pipx
 
 sudo apt install -y firefox-esr remmina
 
-# May be deleted in the future
-#sudo apt install -y 
+# # # May be deleted in the future # # #
+sudo apt install -y xwayland waybar swayidle swaylock swaybg
 
 # Firmware
 sudo apt install -y firmware-linux firmware-linux-nonfree firmware-misc-nonfree
@@ -145,12 +145,10 @@ sudo apt install -y firmware-linux firmware-linux-nonfree firmware-misc-nonfree
 sudo apt install -y firmware-iwlwifi firmware-atheros firmware-realtek
 
 # Network
-sudo apt install -y network-manager 
+sudo apt install -y ceph-common nfs-common samba-common nmap
 
 # Printer
-sudo apt install -y printer-driver-all cups cups-client cups-filters cups-pdf system-config-printer
-
-#sudo apt install -y linux-headers-$(uname -r)
+sudo apt install -y system-config-printer cups cups-client cups-filters cups-pdf printer-driver-all
 
 sudo apt install -y mate-polkit --no-install-recommends
 #sudo apt install -y polkit-kde-agent-1 --no-install-recommends
