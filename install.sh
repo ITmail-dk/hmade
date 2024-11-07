@@ -131,7 +131,7 @@ sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-util
 sudo apt install -y wlogout hyprpaper hyprcursor-util waybar swayidle swaylock xwayland swaybg
 
 sudo apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
-sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion wlr-randr
+sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion coreutils wlr-randr
 
 sudo apt install -y firefox-esr remmina
 
