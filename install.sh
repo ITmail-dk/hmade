@@ -285,7 +285,8 @@ exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CUR
 #exec-once = hyprctl hyprpaper preload "$HOME/Wallpapers/Wallpaper.png"
 #exec-once = hyprctl hyprpaper wallpaper ",$HOME/Wallpapers/Wallpaper.png"
 
-exec = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
+exec-once = wal --cols16 darken -q -i $HOME/Wallpapers
+#exec-once = swaybg -m fill -i $(find $HOME/Wallpapers -type f | shuf -n 1)
 
 exec-once = ~/.config/waybar/auto-reload-waybar.sh
 exec-once = dunst
