@@ -130,8 +130,9 @@ sudo apt -y install sddm --no-install-recommends
 sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
 sudo apt install -y wlogout hyprpaper hyprcursor-util
 
-sudo apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools qt6-wayland xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
+sudo apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools xsensors flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
 sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion wlr-randr coreutils imagemagick pipx
+sudo apt install -y qt6-wayland qt5ct qt6ct --ignore-missing
 
 sudo apt install -y firefox-esr remmina
 
