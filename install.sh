@@ -139,6 +139,9 @@ sudo apt install -y firefox-esr remmina
 # # # May be deleted in the future # # #
 sudo apt install -y xwayland waybar swayidle swaylock swaybg
 
+# Build Tools
+# sudo apt install -y build-essential make xorriso live-build --ignore-missing
+
 # Firmware
 sudo apt install -y firmware-linux firmware-linux-nonfree firmware-misc-nonfree
 
