@@ -106,7 +106,7 @@ fi
 
 
 if ! dpkg -s apt-transport-https >/dev/null 2>&1; then
-    sudo apt -y install apt-transport-https
+    sudo DEBIAN_FRONTEND=noninteractive apt -y install apt-transport-https
     sudo sed -i 's+http:+https:+g' /etc/apt/sources.list
 else
     echo "apt-transport-https is already installed."
@@ -120,54 +120,54 @@ sudo sed -i 's/bookworm-security/testing-security/g' /etc/apt/sources.list
 
 sudo sed -i 's/bookworm-updates/testing-updates/g' /etc/apt/sources.list
 
-export DEBIAN_FRONTEND=noninteractive
+# DEBIAN_FRONTEND=noninteractive
 
 # APT Install Start
-sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+sudo apt update && sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y && sudo DEBIAN_FRONTEND=noninteractive apt autoremove -y
 
-sudo apt -y install sddm --no-install-recommends
+sudo DEBIAN_FRONTEND=noninteractive apt -y install sddm --no-install-recommends
 
-sudo apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
-sudo apt install -y wlogout hyprpaper hyprcursor-util
+sudo DEBIAN_FRONTEND=noninteractive apt install -y git wget curl fastfetch kitty wayland-protocols wayland-utils hyprland hyprland-protocols xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-hyprland libinput-bin libinput-dev
+sudo DEBIAN_FRONTEND=noninteractive apt install -y wlogout hyprpaper hyprcursor-util
 
-sudo apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools lm-sensors fancontrol flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
-sudo apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion wlr-randr coreutils imagemagick pipx power-profiles-daemon chrony
-sudo apt install -y qt6-wayland qt5ct qt6ct --ignore-missing
+sudo DEBIAN_FRONTEND=noninteractive apt install -y dbus acpi nwg-look fwupd fwupdate xdg-utils xdp-tools lm-sensors fancontrol flameshot speedcrunch mc gparted mpd mpc ncmpcpp fzf ccrypt xarchiver notepadqq htop
+sudo DEBIAN_FRONTEND=noninteractive apt install -y thunar gvfs-backends xarchiver wofi dunst libnotify-bin notify-osd brightnessctl usbutils bash-completion wlr-randr coreutils imagemagick pipx power-profiles-daemon
+sudo DEBIAN_FRONTEND=noninteractive apt install -y qt6-wayland qt5ct qt6ct --ignore-missing
 
-sudo apt install -y firefox-esr remmina
+sudo DEBIAN_FRONTEND=noninteractive apt install -y firefox-esr remmina
 
 # # # May be deleted in the future # # #
-sudo apt install -y xwayland waybar swayidle swaylock swaybg
-# xsensors
+sudo DEBIAN_FRONTEND=noninteractive apt install -y xwayland waybar swayidle swaylock swaybg
+# chrony xsensors
 
 # Build Tools
-# sudo apt install -y build-essential make xorriso live-build --ignore-missing
+# sudo DEBIAN_FRONTEND=noninteractive apt install -y build-essential make xorriso live-build --ignore-missing
 
 # Firmware
-sudo apt install -y firmware-linux firmware-linux-nonfree firmware-misc-nonfree
+sudo DEBIAN_FRONTEND=noninteractive apt install -y firmware-linux firmware-linux-nonfree firmware-misc-nonfree
 
-# Firmware WiFi & Bluetooth
-sudo apt install -y firmware-iwlwifi firmware-atheros firmware-realtek
+# WiFi Firmware
+#sudo DEBIAN_FRONTEND=noninteractive apt install -y firmware-iwlwifi firmware-atheros firmware-realtek
 
 # Network
-sudo apt install -y ceph-common nfs-common samba-common nmap
+sudo DEBIAN_FRONTEND=noninteractive apt install -y ceph-common nfs-common samba-common nmap
 
 # Printer
-sudo apt install -y system-config-printer cups cups-client cups-filters cups-pdf printer-driver-all
+sudo DEBIAN_FRONTEND=noninteractive apt install -y system-config-printer cups cups-client cups-filters cups-pdf printer-driver-all
 sudo usermod -a -G lpadmin $USER
 
 # Polkit Agent
-sudo apt install -y mate-polkit --no-install-recommends
-#sudo apt install -y polkit-kde-agent-1 --no-install-recommends
+sudo DEBIAN_FRONTEND=noninteractive apt install -y mate-polkit --no-install-recommends
+#sudo DEBIAN_FRONTEND=noninteractive apt install -y polkit-kde-agent-1 --no-install-recommends
 
 # Audio
-sudo apt install -y pipewire wireplumber pavucontrol pipewire-alsa pipewire-pulse pipewire-jack
+sudo DEBIAN_FRONTEND=noninteractive apt install -y pipewire wireplumber pavucontrol pipewire-alsa pipewire-pulse pipewire-jack
  
 # PipeWire Sound Server "Audio" - https://pipewire.org/
 systemctl enable --user --now pipewire.socket pipewire-pulse.socket wireplumber.service
 
 # Bluetooth
-sudo apt install -y bluetooth bluez-firmware blueman bluez bluez-tools bluez-cups bluez-obexd bluez-meshd pulseaudio-module-bluetooth libspa-0.2-bluetooth libspa-0.2-jack libspa-0.2-libcamera
+sudo DEBIAN_FRONTEND=noninteractive apt install -y bluetooth bluez-firmware blueman bluez bluez-tools bluez-cups bluez-obexd bluez-meshd pulseaudio-module-bluetooth libspa-0.2-bluetooth libspa-0.2-jack libspa-0.2-libcamera
 
 
 echo -e "${GREEN} CPU Microcode install ${NC}"
@@ -201,7 +201,7 @@ install_gpu_driver() {
     *NVIDIA*)gpu_driver="mesa-va-drivers nvidia-driver libvdpau-va-gl1 nvidia-vdpau-driver libnvcuvid1 libnvidia-encode1" ;;
   esac
   for pkg in $gpu_driver; do
-    [ -n "$pkg" ] && sudo apt install --no-install-recommends -y "$pkg"
+    [ -n "$pkg" ] && sudo DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends -y "$pkg"
   done
 }
 
