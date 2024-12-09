@@ -169,6 +169,8 @@ systemctl enable --user --now pipewire.socket pipewire-pulse.socket wireplumber.
 # Bluetooth
 sudo DEBIAN_FRONTEND=noninteractive apt install -y bluetooth bluez-firmware blueman bluez bluez-tools bluez-cups bluez-obexd bluez-meshd pulseaudio-module-bluetooth libspa-0.2-bluetooth libspa-0.2-jack libspa-0.2-libcamera
 
+# Linux Headers
+sudo apt -y install linux-headers-$(uname -r)
 
 echo -e "${GREEN} CPU Microcode install ${NC}"
 export LC_ALL=C # All subsequent command output will be in English
@@ -198,10 +200,10 @@ install_gpu_driver() {
   case "$(lspci | grep -E 'VGA|3D')" in
     *Intel*) gpu_driver="intel-media-va-driver intel-media-va-driver-non-free" ;;
     *AMD*)   gpu_driver="mesa-va-drivers libvdpau-va-gl1" ;;
-    *NVIDIA*)gpu_driver="mesa-va-drivers nvidia-driver libvdpau-va-gl1 nvidia-vdpau-driver libnvcuvid1 libnvidia-encode1" ;;
+    *NVIDIA*)gpu_driver="nvidia-driver" ;;
   esac
   for pkg in $gpu_driver; do
-    [ -n "$pkg" ] && sudo DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends -y "$pkg"
+    [ -n "$pkg" ] && sudo DEBIAN_FRONTEND=noninteractive apt install -y "$pkg"
   done
 }
 
